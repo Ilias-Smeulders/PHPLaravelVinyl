@@ -1,3 +1,20 @@
+<h1>Vinylshop project for school</h1>
+<ul>
+    <li>First change the env.example file to your settings.</li>
+    <li>Then change the file name to .env</li>
+    <li>Then run the following commands
+        <ol>
+            <li>npm i</li>
+            <li>composer install</li>
+            <li>npm run watch</li>
+        </ol>
+    </li>
+</ul>
+<h6>Project by: Ilias Smeulders <img src="https://avatars.githubusercontent.com/u/35345744?v=4" alt="ilias" style="width: 50px; margin-left:200px; border-radius:25px"></h6>
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
