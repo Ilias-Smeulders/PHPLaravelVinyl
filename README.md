@@ -10,7 +10,7 @@
         </ol>
     </li>
 </ul>
-<h6>Project by: Ilias Smeulders <img src="https://avatars.githubusercontent.com/u/35345744?v=4" alt="ilias" style="width: 50px; margin-left:200px; border-radius:25px"></h6>
+<h6>Project by: Ilias Smeulders</h6>
 
 
 
