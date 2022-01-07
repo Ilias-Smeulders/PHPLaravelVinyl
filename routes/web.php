@@ -28,9 +28,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('genres2/qryGenres', 'Admin\Genre2Controller@qryGenres');
     Route::resource('genres2', 'Admin\Genre2Controller', ['parameters' => ['genres2' => 'genre']]);
     Route::resource('records', 'Admin\RecordController');
+    Route::resource('users', 'Admin\UserController');
 });
-Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::redirect('/', '/user/profile');
+Route::middleware(['auth'])->prefix('users')->group(function () {
+    Route::redirect('/', '/users/profile');
     Route::get('profile', 'User\ProfileController@edit');
     Route::post('profile', 'User\ProfileController@update');
     Route::get('password', 'User\PasswordController@edit');

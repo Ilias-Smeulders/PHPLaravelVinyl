@@ -19,14 +19,6 @@ class GenreController extends Controller
         $genres = Genre::orderBy('id')
             ->withCount('records')
             ->get();
-        if($request->isMethod('get') && $request->has('order')){
-            if($request->all()['order'] == 'id')
-                $genres = Genre::orderBy('id')->withCount('records')->get();
-            if($request->all()['order'] == 'name')
-                $genres = Genre::orderBy('name')->withCount('records')->get();
-            if($request->all()['order'] == 'records')
-                $genres = Genre::orderBy('records_count', 'desc')->withCount('records')->get();
-        }
         $result = compact('genres');
         //dd($result);
         return view('admin.genres.index', $result);

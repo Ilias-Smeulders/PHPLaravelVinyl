@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
-    // Edit user password
+    // Edit users password
     public function edit()
     {
-        return view('user.password');
+        return view('users.password');
     }
 
-    // Update and encrypt user password
+    // Update and encrypt users password
     public function update(Request $request)
     {
         // Validate $request
@@ -23,7 +23,7 @@ class PasswordController extends Controller
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed',
         ]);
-        // Update encrypted user password in the database
+        // Update encrypted users password in the database
         $user = User::findOrFail(auth()->id());
         if (!Hash::check($request->current_password, $user->password)) {
             session()->flash('danger', "Your current password doesn't mach the password in the database");
