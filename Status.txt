@@ -1,0 +1,3 @@
+Tis tijd en ik ging net klooten met het moeilijkste.... databases
+
+https://itf-laravel.netlify.app/laravel_7/migrations.html#create-a-new-database
