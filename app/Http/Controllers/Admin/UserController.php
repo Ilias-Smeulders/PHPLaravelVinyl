@@ -17,8 +17,17 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $name = '%' . $request->input('uname') . '%'; // $request->input('artist') OR $request->artist OR $request['artist'];;
+
         $users = User::orderBy('id')
-            ->get();
+            ->where([
+                ['name', 'like', $name]
+            ])
+            ->orWhere([
+                ['email', 'like', $name]
+            ])
+            ->paginate(12);
+
         $result = compact('users');
         //dd($result);
         return view('admin.users.index', $result);
