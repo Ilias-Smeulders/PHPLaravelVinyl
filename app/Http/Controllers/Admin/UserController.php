@@ -17,16 +17,40 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $name = '%' . $request->input('uname') . '%'; // $request->input('artist') OR $request->artist OR $request['artist'];;
-
-        $users = User::orderBy('id')
-            ->where([
-                ['name', 'like', $name]
-            ])
-            ->orWhere([
-                ['email', 'like', $name]
-            ])
-            ->paginate(12);
+        $name = '%' . $request->input('uname') . '%';
+        $order = $request->order;
+        if($order == '')
+        {
+            $users = User::orderby('id')
+                ->where([
+                    ['name', 'like', $name]
+                ])
+                ->orWhere([
+                    ['email', 'like', $name]
+                ])
+                ->paginate(12);
+        }
+        else if ($order[0] == 'd') {
+            $order = ltrim($order, $order[0]);
+            $users = User::orderby(order, 'desc')
+                ->where([
+                    ['name', 'like', $name]
+                ])
+                ->orWhere([
+                    ['email', 'like', $name]
+                ])
+                ->paginate(12);
+        }
+        else {
+            $users = User::orderby($order)
+                ->where([
+                    ['name', 'like', $name]
+                ])
+                ->orWhere([
+                    ['email', 'like', $name]
+                ])
+                ->paginate(12);
+        }
 
         $result = compact('users');
         //dd($result);

@@ -36,6 +36,13 @@ Route::middleware(['auth'])->prefix('users')->group(function () {
     Route::post('profile', 'User\ProfileController@update');
     Route::get('password', 'User\PasswordController@edit');
     Route::post('password', 'User\PasswordController@update');
+    Route::get('history', 'User\HistoryController@index');
+    Route::get('checkout', 'User\HistoryController@checkout');
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('basket', 'BasketController@index');
+Route::get('basket/add/{id}', 'BasketController@addToCart');
+Route::get('basket/delete/{id}', 'BasketController@deleteFromCart');
+Route::get('basket/empty', 'BasketController@emptyCart');
+Route::get('basket/remove/{id}', 'BasketController@removeRecordFromCart');

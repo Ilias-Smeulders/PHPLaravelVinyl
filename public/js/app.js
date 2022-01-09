@@ -40496,6 +40496,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var VinylShop = function () {
+  $('.btn.disabled').parent().css('cursor', 'not-allowed');
+
   function hello() {
     console.log('The Vinyl Shop JavaScript works! 🙂');
   }

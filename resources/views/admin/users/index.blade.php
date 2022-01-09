@@ -10,27 +10,28 @@
             <i class="fas fa-plus-circle mr-1"></i>Create new user
         </a>
     </p>
-    <form method="get" action="/users" id="searchForm">
+    <form method="get" action="/admin/users" id="searchForm">
         <div class="row">
             <div class="col-sm-8 mb-2">
-                <input type="text" class="form-control" name="artist" id="artist"
-                       value="{{ request()->uname }}" placeholder="Filter Name Or email">
+                <input type="text" class="form-control" name="uname" id="uname"
+                       placeholder="Filter Name Or email">
             </div>
             <div class="col-sm-4 mb-2">
-                <select class="form-control" name="name" id="name">
-                    <option value="{{request()->order}}">Name A &hookrightarrow; Z</option>
-                    <option value="namedesc">Name Z &hookrightarrow; A</option>
-                    <option value="emailasc">Email A &hookrightarrow; Z</option>
-                    <option value="emaildesc">Email Z &hookrightarrow; A</option>
-                    <option value="notactive">Not Active</option>
-                    <option value="admin">Admin</option>
+                <select class="form-control" name="order[]" id="order">
+                    <option value="id" {{ (request()->order == 'id' ? 'selected' : '') }}>All genres</option>
+                    <option value="name" {{ (request()->order == 'name' ? 'selected' : '') }}>Name A &hookrightarrow; Z</option>
+                    <option value="dname" {{ (request()->order == 'dname' ? 'selected' : '') }}>Name Z &hookrightarrow; A</option>
+                    <option value="email" {{ (request()->order == 'email' ? 'selected' : '') }}>Email A &hookrightarrow; Z</option>
+                    <option value="demail" {{ (request()->order == 'demail' ? 'selected' : '') }}>Email Z &hookrightarrow; A</option>
+                    <option value="active" {{ (request()->order == 'active' ? 'selected' : '') }}>Not Active</option>
+                    <option value="admin" {{ (request()->order == 'admin' ? 'selected' : '') }}>Admin</option>
                 </select>
             </div>
         </div>
     </form>
     @if ($users->count() == 0)
         <div class="alert alert-danger alert-dismissible fade show">
-            Can't find any artist or album with <b>'{{ request()->artist }}'</b> for this genre
+            Can't find any user with <b>'{{ request()->uname }}'</b>
             <button type="button" class="close" data-dismiss="alert">
                 <span>&times;</span>
             </button>
@@ -100,5 +101,11 @@
                 $(this).closest('form').submit();
             }
         })
+        $('#uname').blur(function () {
+            $('#searchForm').submit();
+        });
+        $('#order').change(function () {
+            $('#searchForm').submit();
+        });
     </script>
 @endsection
