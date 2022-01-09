@@ -3,11 +3,11 @@
     <li>First change the env.example file to your settings.</li>
     <li>Then change the file name to .env</li>
     <li>Then run the following commands
-        <ol>
+        <ul>
             <li>npm i</li>
             <li>composer install</li>
             <li>npm run watch</li>
-        </ol>
+        </ul>
     </li>
 </ul>
 <h6>Project by: Ilias Smeulders</h6>
