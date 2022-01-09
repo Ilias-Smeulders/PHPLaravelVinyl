@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             [
                 [
                     'name' => 'Ilias Smeulders',
-                    'email' => 'smeulders791@gmail.com',
+                    'email' => 'Klinkers@gmail.com',
                     'admin' => true,
                     'password' => Hash::make('1234'),
                     'created_at' => now(),
