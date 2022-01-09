@@ -14,4 +14,7 @@ class Order extends Model
     {
         return $this->belongsTo('App\User')->withDefault();   // an order belongs to a users
     }
+    public function orderlines(){
+        return $this->hasMany('App\Orderline');
+    }
 }

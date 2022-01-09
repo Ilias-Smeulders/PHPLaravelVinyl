@@ -1,5 +1,4 @@
 let VinylShop = (function () {
-    $('.btn.disabled').parent().css('cursor', 'not-allowed');
     function hello() {
         console.log('The Vinyl Shop JavaScript works! 🙂');
     }

@@ -29,6 +29,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('genres2', 'Admin\Genre2Controller', ['parameters' => ['genres2' => 'genre']]);
     Route::resource('records', 'Admin\RecordController');
     Route::resource('users', 'Admin\UserController');
+    Route::get('orders', 'Admin\OrderController@index');
 });
 Route::middleware(['auth'])->prefix('users')->group(function () {
     Route::redirect('/', '/users/profile');

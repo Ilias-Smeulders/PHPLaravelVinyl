@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
 use App\Order;
 use App\Orderline;
+use App\User;
+use Auth;
+use Cart;
 use Illuminate\Http\Request;
+use Mail;
 
 class HistoryController extends Controller
 {
@@ -55,11 +60,48 @@ class HistoryController extends Controller
     }
     private function confirmEmail()
     {
-        //
+        // construct the mail message
+        $message = '<p>Thank you for your order.<br>The records will be delivered as soon as possible.</p>';
+        $message .= '<ul>';
+        foreach (Cart::getRecords() as $record) {
+            $message .= "<li>{$record['qty']} x {$record['artist']} - {$record['title']}</li>";
+        }
+        $message .= '</ul>';
+
+        // Get all admins
+        $admins = User::where('admin', true)->select('name', 'email')->get();
+
+        $email = new OrderMail($message);
+        Mail::to(Auth::user())
+            ->cc($admins)
+            ->send($email);
     }
 
     private function confirmWhatsApp()
     {
-        //
+        /*// get credentials from the .env file
+        $id = env('TWILIO_AUTH_SID');
+        $token = env('TWILIO_AUTH_TOKEN');
+        $to = env('TWILIO_WHATSAPP_TO');
+        $from = env('TWILIO_WHATSAPP_FROM');
+
+        // the message for the fourth placeholder of the WhatsApp order template
+        $details = "*" . Auth::user()->name . "* has ordered:";
+        foreach (Cart::getRecords() as $record) {
+            $details .= " {$record['qty']} x {$record['artist']} - {$record['title']},";
+        }
+
+        // construct the order template for the sandbox:
+        // Your {{1}} order of {{2}} has shipped and should be delivered on {{3}}. Details: {{4}}
+        $message = "Your *Vinyl Shop* order of *today* has shipped and should be delivered on *your address*. Details: $details";
+
+        // send WhatsApp message to your phone
+        $whatsApp = new Client($sid, $token);
+        $whatsApp->messages->create(
+            "whatsapp:$to", [
+                'from' => "whatsapp:$from",
+                'body' => $message
+            ]
+        );*/
     }
 }

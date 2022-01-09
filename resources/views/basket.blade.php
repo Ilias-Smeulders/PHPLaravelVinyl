@@ -54,7 +54,7 @@
                     <td>
                         <p><b>Total</b>: €&nbsp;{{ Cart::getTotalPrice() }}</p>
                         @auth()
-                            <p><a href="/user/checkout" class="btn btn-sm btn-outline-success">Checkout</a></p>
+                            <p><a href="/users/checkout" class="btn btn-sm btn-outline-success">Checkout</a></p>
                         @endauth
                     </td>
                 </tr>
