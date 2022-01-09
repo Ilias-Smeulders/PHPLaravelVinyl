@@ -48,20 +48,14 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:3'
         ]);
-        $active = 0;
-        $admin = 0;
-        if($request->active == "active")
-            $active = 1;
-        if($request->admin == "admin")
-            $admin = 1;
         // Create new genre
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->email_verified_at = now();
-        $user->active = $active;
-        $user->admin = $admin;
+        $user->active = $request->active;
+        $user->admin = $request->admin;
         $user->save();
 
         // Flash a success message to the session
@@ -89,7 +83,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $result = compact('user');
+        //Json::dump($result);
+        return view('admin.users.edit', $result);
     }
 
     /**
@@ -101,7 +97,24 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // Validate $request
+        $this->validate($request,[
+            'name' => 'required|min:3|unique:users,name,' . $user->id,
+            'email' => 'required|email|unique:users,email',
+        ]);
+
+        // Update genre
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->email_verified_at = now();
+        $user->active = $request->active;
+        $user->admin = $request->admin;
+        $user->save();
+
+        // Flash a success message to the session
+        session()->flash('success', 'The user has been updated');
+        // Redirect to the master page
+        return redirect('admin/users');
     }
 
     /**
