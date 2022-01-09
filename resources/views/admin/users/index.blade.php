@@ -48,9 +48,8 @@
                                    title="Edit {{ $user->name }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <button type="button" class="btn btn-outline-danger deleteGenre"
+                                <button type="button" class="btn btn-outline-danger deleteUser"
                                         data-toggle="tooltip"
-                                        data-records="{{ $user }}"
                                         data-name="{{$user->name}}"
                                         title="Delete {{ $user->name }}">
                                     <i class="fas fa-trash-alt"></i>
@@ -64,18 +63,14 @@
         </table>
     </div>
 @endsection
-{{--@section('script_after')
+@section('script_after')
     <script>
-        $('.deleteGenre').click(function () {
-            const records = $(this).data('records');
+        $('.deleteUser').click(function () {
             const name = $(this).data('name');
-            let msg = `Delete this ${name}?`;
-            if (records > 0) {
-                msg += `\nThe ${records} ${name} records will also be deleted!`
-            }
+            let msg = `Delete this user with name: ${name}?`;
             if (confirm(msg)) {
                 $(this).closest('form').submit();
             }
         })
     </script>
-@endsection--}}
+@endsection

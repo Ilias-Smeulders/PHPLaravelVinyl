@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -30,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-
+        return view('admin.users.create');
     }
 
     /**
@@ -41,7 +42,32 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate $request
+        $this->validate($request,[
+            'name' => 'required|min:3|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:3'
+        ]);
+        $active = 0;
+        $admin = 0;
+        if($request->active == "active")
+            $active = 1;
+        if($request->admin == "admin")
+            $admin = 1;
+        // Create new genre
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->email_verified_at = now();
+        $user->active = $active;
+        $user->admin = $admin;
+        $user->save();
+
+        // Flash a success message to the session
+        session()->flash('success', "The user <b>$user->name</b> has been added");
+        // Redirect to the master page
+        return redirect('admin/users');
     }
 
     /**
@@ -52,7 +78,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return redirect('admin/genres');
     }
 
     /**
@@ -86,6 +112,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        session()->flash('success', "The user <b>$user->name</b> has been deleted");
+        return redirect('admin/users');
     }
 }
