@@ -30,6 +30,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('records', 'Admin\RecordController');
     Route::resource('users', 'Admin\UserController');
     Route::get('orders', 'Admin\OrderController@index');
+    // yes, you can nest prefixes and groups if you want :-)
+    Route::prefix('demo')->group(function (){
+        Route::get('orderlines', 'Admin\OrderController@orderlines');
+        Route::get('users', 'Admin\OrderController@users');
+    });
 });
 Route::middleware(['auth'])->prefix('users')->group(function () {
     Route::redirect('/', '/users/profile');
